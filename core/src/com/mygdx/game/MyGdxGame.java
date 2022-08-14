@@ -13,16 +13,18 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("chip.jpg");
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 1, 1, 1);
 
-		batch.begin();
-		batch.draw(img, 0, 0);
+		float x = Gdx.input.getX() - img.getWidth()/2;
+		float y = Gdx.graphics.getHeight() - Gdx.input.getY() - img.getHeight()/2;
 
+		batch.begin();
+		batch.draw(img, x, y);
 		batch.end();
 	}
 	
