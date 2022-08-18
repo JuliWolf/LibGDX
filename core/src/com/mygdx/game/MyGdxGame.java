@@ -2,35 +2,57 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+
+	SpritesAnimation animation;
+
+	String direction = "left";
+
+	float currentPosition;
+
+	float correction = 100f;
+	float stepLength = 3f;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("chip.jpg");
+		animation = new SpritesAnimation("character.png", 6, 4, Animation.PlayMode.LOOP);
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 1, 1, 1);
 
-		float x = Gdx.input.getX() - img.getWidth()/2;
-		float y = Gdx.graphics.getHeight() - Gdx.input.getY() - img.getHeight()/2;
+		animation.setTime(Gdx.graphics.getDeltaTime());
+
+		if (direction == "left" && Gdx.graphics.getWidth() > (currentPosition + correction)) {
+			currentPosition += stepLength;
+		} else if (direction == "left" && Gdx.graphics.getWidth() <= (currentPosition + correction)) {
+			direction = "right";
+		} else if (direction == "right" && currentPosition > 0) {
+			currentPosition -= stepLength;
+		} else if (direction == "right" && currentPosition <= 0) {
+			direction = "left";
+		}
+
+		animation.flip(direction);
 
 		batch.begin();
-		batch.draw(img, x, y);
+		batch.draw(animation.getFrame(), currentPosition, 0);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		animation.dispose();
 	}
 }
