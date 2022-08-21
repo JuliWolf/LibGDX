@@ -3,14 +3,29 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpritesAnimation {
   private Texture img;
 
+  private TextureAtlas atlas;
+
   private Animation<TextureRegion> animation;
 
   private float time;
+
+  public SpritesAnimation (String atlas, String[] regionNames, Animation.PlayMode playMode) {
+    this.atlas = new TextureAtlas(atlas);
+
+    for (int i = 0; i < regionNames.length; i++) {
+      animation = new Animation<TextureRegion>(1 / 7f, this.atlas.findRegions(regionNames[i]));
+    }
+
+    animation.setPlayMode(playMode);
+
+    time += Gdx.graphics.getDeltaTime();
+  }
 
   public SpritesAnimation (String image, int column, int row, Animation.PlayMode playMode) {
     img = new Texture(image);
@@ -56,6 +71,7 @@ public class SpritesAnimation {
 
   public void dispose () {
     img.dispose();
+    atlas.dispose();
   }
 
   public void flip (String direction) {
