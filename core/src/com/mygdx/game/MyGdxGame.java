@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -17,8 +18,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	String direction = "left";
 
 	float currentPosition;
-
-	float correction = 100f;
 	float stepLength = 3f;
 
 	@Override
@@ -31,11 +30,12 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 1, 1, 1);
 
+		TextureRegion frame = animation.getFrame();
 		animation.setTime(Gdx.graphics.getDeltaTime());
 
-		if (direction == "left" && Gdx.graphics.getWidth() > (currentPosition + correction)) {
+		if (direction == "left" && Gdx.graphics.getWidth() > (currentPosition + frame.getRegionWidth())) {
 			currentPosition += stepLength;
-		} else if (direction == "left" && Gdx.graphics.getWidth() <= (currentPosition + correction)) {
+		} else if (direction == "left" && Gdx.graphics.getWidth() <= (currentPosition + frame.getRegionWidth())) {
 			direction = "right";
 		} else if (direction == "right" && currentPosition > 0) {
 			currentPosition -= stepLength;
@@ -46,7 +46,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		animation.flip(direction);
 
 		batch.begin();
-		batch.draw(animation.getFrame(), currentPosition, 0);
+		batch.draw(frame, currentPosition, 0);
 		batch.end();
 	}
 	
