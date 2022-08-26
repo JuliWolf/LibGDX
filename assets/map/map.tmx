@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#156b90" nextlayerid="7" nextobjectid="8">
+ <tileset firstgid="1" name="nature-paltformer-tileset-16x16" tilewidth="16" tileheight="16" tilecount="77" columns="7">
+  <image source="map.png" width="112" height="176"/>
+  <tile id="69">
+   <animation>
+    <frame tileid="54" duration="150"/>
+    <frame tileid="55" duration="150"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer id="2" name="Background" width="32" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzzZmBg8B7FA4rNiMS0st+WSOyMps8JhzvR1ZFqvwsO7IWmz5NIdaTaT694xWa/C5XsdiIiPmFqkcMOmznkxC+uuMFnF7HmkBq/o3hwY2LLP2pjmP3Eln/UxjD7CeUTWmGQ3aNgZAMAP9uMTw==
+  </data>
+ </layer>
+ <objectgroup id="6" name="camera-objects">
+  <object id="6" name="camera" x="238.5" y="136">
+   <point/>
+  </object>
+  <object id="7" name="bounds" x="1.5" y="1" width="510.5" height="254.5"/>
+ </objectgroup>
+ <layer id="4" name="Sea" width="32" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAAAiDr2L+gMXxgIwEAHnoKA+OyBM8=
+  </data>
+ </layer>
+ <layer id="1" name="Layer-back" width="32" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztktsKgCAQRDejiyFdHnrrC/z/D8wlBVm01MyXHBgQduDojgBVVfFqlFt9PshsKMAflSfPbM7MwrcyuN4rtSnfZJiVBSsvX/CRxQmP8k2GO7IhMp3RLlGL8qq8fcjfI/M+vkjgu3q7E+3auCPuA/lPe7P/H4ruOmXfMXzkCWtWmu+6T+Xn41f9VycmrQSY
+  </data>
+ </layer>
+ <layer id="5" name="Layer-front" width="32" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjZxg4wA7EfANoP9+o/aP2E1AjM8D20woIAbH0ANovOYLsR05DWgNgPzIAxbswFNPKfhYgZgViNix2SiFhbPYzAjETAcwMxMokuEcSzV589nMAMScBzIWkXgGIFYFYCUkMFt9COOylpv2E/K2IByvh1joKRggAAKVkB4g=
+  </data>
+ </layer>
+ <layer id="3" name="Objects" width="32" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQwXYQTEMGNLRbgkk+8XwqKE2sILSagwI/6rgUAtSYwxl60FpcyB2g9K0AuJUNMuSARLG9iTokUPjUxoPFgy4w8ueAdNt6PbLE2E+MoDFqx4DaprG5g+Y/YZQDNKjimYOclohxn50IAa1G+YPmD0gQI24JmS/LNRubOGIHtb4AMzNFlBsRKQ+UP5SY0DNTzCgiqkcL8BVVlAT4PMXrrJiFIyCUcDAAABQfAvY
+  </data>
+ </layer>
+</map>

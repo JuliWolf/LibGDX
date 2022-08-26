@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import java.util.Objects;
+
 public class SpritesAnimation {
   private Texture img;
 
@@ -70,18 +72,23 @@ public class SpritesAnimation {
   }
 
   public void dispose () {
-    img.dispose();
-    atlas.dispose();
+    if (img != null) {
+      img.dispose();
+    }
+
+    if (atlas != null) {
+      atlas.dispose();
+    }
   }
 
   public void flip (String direction) {
-    if (direction == "left" && getFrame().isFlipX()) {
+    if (Objects.equals(direction, "left") && getFrame().isFlipX()) {
       getFrame().flip(true, false);
 
       return;
     }
 
-    if (direction == "right" && !getFrame().isFlipX()) {
+    if (Objects.equals(direction, "right") && !getFrame().isFlipX()) {
       getFrame().flip(true, false);
     }
   }
