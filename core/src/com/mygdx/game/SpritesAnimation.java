@@ -82,13 +82,13 @@ public class SpritesAnimation {
   }
 
   public void flip (String direction) {
-    if (Objects.equals(direction, "left") && getFrame().isFlipX()) {
+    if (Objects.equals(direction, "right") && getFrame().isFlipX()) {
       getFrame().flip(true, false);
 
       return;
     }
 
-    if (Objects.equals(direction, "right") && !getFrame().isFlipX()) {
+    if (Objects.equals(direction, "left") && !getFrame().isFlipX()) {
       getFrame().flip(true, false);
     }
   }
