@@ -13,6 +13,7 @@ public class Physics {
 
   public Physics() {
     world = new World(new Vector2(0, -9.81f), true);
+    world.setContactListener(new ContListener());
     debugRenderer = new Box2DDebugRenderer();
   }
 
@@ -28,10 +29,12 @@ public class Physics {
     debugRenderer.render(world, camera.combined);
   }
 
-  public Body addObject (RectangleMapObject mapObject, String name) {
+  public Body addObject (RectangleMapObject mapObject) {
     Rectangle rectangle = mapObject.getRectangle();
+    String name = mapObject.getName();
     String bodyType = (String) mapObject.getProperties().get("BodyType");
     float gravityScale = (float) mapObject.getProperties().get("gravityScale");
+    float restitution = (float) mapObject.getProperties().get("restitution");
     BodyDef def = new BodyDef();
     FixtureDef fDef = new FixtureDef();
     PolygonShape polygonShape = new PolygonShape();
@@ -45,10 +48,16 @@ public class Physics {
     fDef.shape = polygonShape;
     fDef.friction = 1;
     fDef.density = 1;
-    fDef.restitution = 0;
+    fDef.restitution = restitution;
 
     Body body = world.createBody(def);
     body.createFixture(fDef).setUserData(name);
+
+    if (name != null && name.equals("hero")) {
+      polygonShape.setAsBox(rectangle.width/3, rectangle.height/3, new Vector2(0, -rectangle.width/3), 0);
+      body.createFixture(fDef).setUserData("legs");
+      body.getFixtureList().get(body.getFixtureList().size-1).setSensor(true);
+    }
 
     polygonShape.dispose();
 
@@ -65,6 +74,10 @@ public class Physics {
       case "KinematicBody": return BodyDef.BodyType.KinematicBody;
       default: return BodyDef.BodyType.StaticBody;
     }
+  }
+
+  public void destroyBody (Body body) {
+    world.destroyBody(body);
   }
 
   public void dispose () {
