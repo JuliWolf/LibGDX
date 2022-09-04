@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -18,11 +17,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.Character;
 import com.mygdx.game.Main;
 import com.mygdx.game.Physics;
-import com.mygdx.game.SpritesAnimation;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GameScreen implements Screen {
 
@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
 
   private OrthographicCamera camera;
 
-  private SpritesAnimation animation;
+  private Character character;
 
   private String direction = "right";
 
@@ -44,15 +44,18 @@ public class GameScreen implements Screen {
   private Physics physics;
   private Body hero;
 
+  public static ArrayList<Body> bodies;
+
   private final Rectangle heroRectangle;
 
   public GameScreen(Main game) {
     this.game = game;
 
     map = new TmxMapLoader().load("map/map.tmx");
+    bodies = new ArrayList<>();
     camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     physics = new Physics();
-    animation = new SpritesAnimation("king.png", 8, 1, Animation.PlayMode.LOOP);
+    character = new Character();
     mapRenderer = new OrthoCachedTiledMapRenderer(map);
 
     // Init layers
@@ -77,15 +80,15 @@ public class GameScreen implements Screen {
     Array<RectangleMapObject> mapCollisionBoxes = mapCollisions.getObjects().getByType(RectangleMapObject.class);
     Array<RectangleMapObject> mapInteractiveObjects = mapInteractives.getObjects().getByType(RectangleMapObject.class);
 
-    hero = physics.addObject(mapHeroObject, "hero");
+    hero = physics.addObject(mapHeroObject);
     heroRectangle = mapHeroObject.getRectangle();
 
     for (int i = 0; i < mapCollisionBoxes.size; i++) {
-      physics.addObject(mapCollisionBoxes.get(i), "collision");
+      physics.addObject(mapCollisionBoxes.get(i));
     }
 
     for (int i = 0; i < mapInteractiveObjects.size; i++) {
-      physics.addObject(mapInteractiveObjects.get(i), "interactive");
+      physics.addObject(mapInteractiveObjects.get(i));
     }
   }
 
@@ -102,19 +105,20 @@ public class GameScreen implements Screen {
 
     renderMap();
 
-    renderCharacter();
-
     physics.step();
     physics.debugDraw(camera);
 
     onKeyPressed();
+
+    renderCharacter();
+
+    updateBodies();
   }
 
   @Override
   public void resize(int width, int height) {
     camera.viewportWidth = width;
     camera.viewportHeight = height;
-
   }
 
   @Override
@@ -134,31 +138,33 @@ public class GameScreen implements Screen {
 
   @Override
   public void dispose() {
-    this.animation.dispose();
-  }
-
-  private void renderFrame (TextureRegion frame) {
-    animation.setTime(Gdx.graphics.getDeltaTime());
-
-    animation.flip(direction);
+    this.character.dispose();
   }
 
   private void onKeyPressed () {
     if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-      direction = "left";
+      character.setDirection("left");
+      character.setCurrentAnimation("run");
+
       hero.applyForceToCenter(new Vector2(-10000, 0), true);
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-      direction = "right";
+      character.setDirection("right");
+      character.setCurrentAnimation("run");
+
       hero.applyForceToCenter(new Vector2(10000, 0), true);
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-      heroRectangle.y += 3f;
+      character.setCurrentAnimation("jump");
+
+      hero.applyForceToCenter(new Vector2(0, 11000), true);
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+      character.setCurrentAnimation("fall");
+
       heroRectangle.y -= 3f;
     }
 
@@ -177,15 +183,15 @@ public class GameScreen implements Screen {
   }
 
   private void renderCharacter () {
-    TextureRegion frame = animation.getFrame();
+    TextureRegion frame = character.getAnimationFrame();
 
-    renderFrame(frame);
+    character.renderCharacter();
 
     heroRectangle.x = hero.getPosition().x - heroRectangle.width;
     heroRectangle.y = hero.getPosition().y - heroRectangle.height;
 
     game.batch.begin();
-    game.batch.draw(frame, heroRectangle.x, heroRectangle.y, heroRectangle.width * 2, heroRectangle.height * 2);
+    game.batch.draw(frame, heroRectangle.x, heroRectangle.y, heroRectangle.width * 2.5f, heroRectangle.height * 2);
     game.batch.end();
   }
 
@@ -205,5 +211,13 @@ public class GameScreen implements Screen {
 
     camera.position.x = hero.getPosition().x;
     camera.position.y = hero.getPosition().y;
+  }
+
+  private void updateBodies () {
+    for (int i = 0; i < bodies.size(); i++) {
+      physics.destroyBody(bodies.get(i));
+    }
+
+    bodies.clear();
   }
 }
