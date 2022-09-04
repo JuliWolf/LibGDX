@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -22,7 +22,6 @@ import com.mygdx.game.Main;
 import com.mygdx.game.Physics;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GameScreen implements Screen {
 
@@ -34,8 +33,6 @@ public class GameScreen implements Screen {
   private OrthographicCamera camera;
 
   private Character character;
-
-  private String direction = "right";
 
   private final int[] layer;
   private final int[] objectLayer;
@@ -68,9 +65,6 @@ public class GameScreen implements Screen {
     objectLayer = new int[1];
     objectLayer[0] = map.getLayers().getIndex("Objects");
 
-    // choose objects by type
-//    map.getLayers().get("camera-objects").getObjects().getByType(RectangleMapObject.class);
-    
     MapLayer mapCamera = map.getLayers().get("setup");
     MapLayer mapCollisions = map.getLayers().get("collision");
     MapLayer mapInteractives = map.getLayers().get("Interactive-objects");
@@ -142,30 +136,38 @@ public class GameScreen implements Screen {
   }
 
   private void onKeyPressed () {
-    if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+    boolean isKeyPressed = false;
+
+    if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && physics.contactListener.isOnGround()) {
       character.setDirection("left");
       character.setCurrentAnimation("run");
 
-      hero.applyForceToCenter(new Vector2(-10000, 0), true);
+      hero.applyForceToCenter(new Vector2(-0.3f, 0), true);
+
+      isKeyPressed = true;
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+    if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && physics.contactListener.isOnGround()) {
       character.setDirection("right");
       character.setCurrentAnimation("run");
 
-      hero.applyForceToCenter(new Vector2(10000, 0), true);
+      hero.applyForceToCenter(new Vector2(0.3f, 0), true);
+
+      isKeyPressed = true;
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+    if (Gdx.input.isKeyPressed(Input.Keys.UP) && physics.contactListener.isOnGround()) {
       character.setCurrentAnimation("jump");
 
-      hero.applyForceToCenter(new Vector2(0, 11000), true);
+      hero.applyForceToCenter(new Vector2(0, 3f), true);
+
+      isKeyPressed = true;
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
       character.setCurrentAnimation("fall");
 
-      heroRectangle.y -= 3f;
+      isKeyPressed = true;
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.P)) {
@@ -180,18 +182,24 @@ public class GameScreen implements Screen {
       dispose();
       game.setScreen(new MenuScreen(game));
     }
+
+    if (!isKeyPressed && physics.contactListener.isOnGround()) {
+      character.setCurrentAnimation("idle");
+    }
   }
 
   private void renderCharacter () {
-    TextureRegion frame = character.getAnimationFrame();
-
-    character.renderCharacter();
+    Sprite sprite = character.renderCharacter();
 
     heroRectangle.x = hero.getPosition().x - heroRectangle.width;
     heroRectangle.y = hero.getPosition().y - heroRectangle.height;
 
+    float x = Gdx.graphics.getWidth() / 2 - heroRectangle.getWidth()/2/camera.zoom;
+    float y = Gdx.graphics.getHeight() / 2 - heroRectangle.getHeight()/2/camera.zoom;
+
     game.batch.begin();
-    game.batch.draw(frame, heroRectangle.x, heroRectangle.y, heroRectangle.width * 2.5f, heroRectangle.height * 2);
+    sprite.setPosition(x, y);
+    sprite.draw(game.batch);
     game.batch.end();
   }
 
@@ -207,10 +215,8 @@ public class GameScreen implements Screen {
 
     camera.zoom = 0.25f;
 
-    game.batch.setProjectionMatrix(camera.combined);
-
-    camera.position.x = hero.getPosition().x;
-    camera.position.y = hero.getPosition().y;
+    camera.position.x = hero.getPosition().x * Physics.PPM;
+    camera.position.y = hero.getPosition().y * Physics.PPM;
   }
 
   private void updateBodies () {

@@ -8,13 +8,17 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Physics {
 
+  public static final float PPM = 100;
   private final World world;
   private final Box2DDebugRenderer debugRenderer;
+  public ContListener contactListener;
 
   public Physics() {
     world = new World(new Vector2(0, -9.81f), true);
-    world.setContactListener(new ContListener());
     debugRenderer = new Box2DDebugRenderer();
+    contactListener = new ContListener();
+
+    world.setContactListener(contactListener);
   }
 
   public void setGravity (Vector2 gravity) {
@@ -40,13 +44,13 @@ public class Physics {
     PolygonShape polygonShape = new PolygonShape();
 
     def.type = getBodyType(bodyType);
-    def.position.set(rectangle.x + rectangle.width/2, rectangle.y + rectangle.height/2);
+    def.position.set((rectangle.x + rectangle.width/2) / PPM, (rectangle.y + rectangle.height/2) / PPM);
     def.gravityScale = gravityScale;
 
-    polygonShape.setAsBox(rectangle.width/2, rectangle.height/2);
+    polygonShape.setAsBox(rectangle.width/2 / PPM, rectangle.height/2 / PPM);
 
     fDef.shape = polygonShape;
-    fDef.friction = 1;
+    fDef.friction = 1f;
     fDef.density = 1;
     fDef.restitution = restitution;
 
@@ -54,9 +58,9 @@ public class Physics {
     body.createFixture(fDef).setUserData(name);
 
     if (name != null && name.equals("hero")) {
-      polygonShape.setAsBox(rectangle.width/3, rectangle.height/3, new Vector2(0, -rectangle.width/3), 0);
+      polygonShape.setAsBox(rectangle.width /3 / PPM, rectangle.height / 12 / PPM, new Vector2(0, -rectangle.width/2 / PPM), 0);
       body.createFixture(fDef).setUserData("legs");
-      body.getFixtureList().get(body.getFixtureList().size-1).setSensor(true);
+      body.setFixedRotation(true);
     }
 
     polygonShape.dispose();

@@ -2,7 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import java.util.Objects;
 
 public class Character {
   private SpritesAnimation runAnimation;
@@ -46,13 +49,28 @@ public class Character {
     }
   }
 
-  public void renderCharacter () {
+  public Sprite renderCharacter () {
     currentAnimation.setTime(Gdx.graphics.getDeltaTime());
 
-    currentAnimation.flip(direction);
+    Sprite sprite = new Sprite(this.getAnimationFrame());
+    sprite.setOriginCenter();
+    sprite.scale(1f);
+    flip(sprite);
+
+    return sprite;
   }
 
-  public TextureRegion getAnimationFrame () {
+  private void flip (Sprite sprite) {
+    if (Objects.equals(direction, "right")) {
+      sprite.flip(false, false);
+    }
+
+    if (Objects.equals(direction, "left")) {
+      sprite.flip(true, false);
+    }
+  }
+
+  private TextureRegion getAnimationFrame () {
     return currentAnimation.getFrame();
   }
 

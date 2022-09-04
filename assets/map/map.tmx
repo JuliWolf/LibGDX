@@ -15,21 +15,21 @@
   </data>
  </layer>
  <objectgroup id="6" name="collision">
-  <object id="8" x="65.3333" y="208" width="157.333" height="16">
+  <object id="8" name="Floor" x="65.3333" y="208" width="157.333" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="9" x="288.667" y="96.6667" width="80" height="16">
+  <object id="9" name="Floor" x="288.667" y="96.6667" width="80" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="10" x="144.333" y="96.3333" width="48" height="16">
+  <object id="10" name="Floor" x="144.333" y="96.3333" width="48" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
@@ -43,7 +43,7 @@
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="13" x="225" y="63.6667" width="30" height="16">
+  <object id="13" name="Floor" x="225" y="63.6667" width="30" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
@@ -57,105 +57,105 @@
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="15" x="384.667" y="95.6667" width="16" height="16">
+  <object id="15" name="Floor" x="384.667" y="95.6667" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="17" x="416.333" y="96.3333" width="16" height="16">
+  <object id="17" name="Floor" x="416.333" y="96.3333" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="18" x="400.333" y="96" width="16" height="16">
+  <object id="18" name="Floor" x="400.333" y="96" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="20" x="209" y="95.8333" width="16" height="16">
+  <object id="20" name="Floor" x="209" y="95.8333" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="21" x="192.333" y="95.8333" width="16" height="16">
+  <object id="21" name="Floor" x="192.333" y="95.8333" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="22" x="272.333" y="64.5" width="16" height="16">
+  <object id="22" name="Floor" x="272.333" y="64.5" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="23" x="129" y="95.8333" width="16" height="16">
+  <object id="23" name="Floor" x="129" y="95.8333" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="24" x="144.667" y="176.333" width="48" height="14">
+  <object id="24" name="Floor" x="144.667" y="176.333" width="48" height="14">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="25" x="208.333" y="160" width="176" height="16">
+  <object id="25" name="Floor" x="208.333" y="160" width="176" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="26" x="448.333" y="160.833" width="16" height="16">
+  <object id="26" name="Floor" x="448.333" y="160.833" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="27" x="400.333" y="160.5" width="16" height="16">
+  <object id="27" name="Floor" x="400.333" y="160.5" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="28" x="336.333" y="192" width="48" height="16">
+  <object id="28" name="Floor" x="336.333" y="192" width="48" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="29" x="336" y="224.5" width="16" height="16">
+  <object id="29" name="Floor" x="336" y="224.5" width="16" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="30" x="224" y="208.167" width="15" height="16">
+  <object id="30" name="Floor" x="224" y="208.167" width="15" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="31" x="256.667" y="224.167" width="48" height="16">
+  <object id="31" name="Floor" x="256.667" y="224.167" width="48" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
@@ -176,21 +176,21 @@
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="34" x="15" y="160.333" width="64" height="16">
+  <object id="34" name="Floor" x="15" y="160.333" width="64" height="16">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="36" x="368.333" y="224.333" width="144" height="32">
+  <object id="36" name="Floor" x="368.333" y="224.333" width="144" height="32">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="37" x="399.667" y="191.667" width="112" height="64">
+  <object id="37" name="Floor" x="399.667" y="191.667" width="112" height="64">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
@@ -204,7 +204,7 @@
     <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
-  <object id="39" x="480" y="111.333" width="32" height="144">
+  <object id="39" name="Floor" x="480" y="111.333" width="32" height="144">
    <properties>
     <property name="BodyType" value="StaticBody"/>
     <property name="gravityScale" type="float" value="1"/>
@@ -454,11 +454,11 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="setup">
-  <object id="116" name="hero" x="161.083" y="27.4167" width="13" height="13">
+  <object id="116" name="hero" x="256.583" y="134.167" width="16" height="16">
    <properties>
     <property name="BodyType" value="DynamicBody"/>
-    <property name="gravityScale" type="float" value="5"/>
-    <property name="restitution" type="float" value="0.3"/>
+    <property name="gravityScale" type="float" value="1"/>
+    <property name="restitution" type="float" value="0"/>
    </properties>
   </object>
  </objectgroup>
